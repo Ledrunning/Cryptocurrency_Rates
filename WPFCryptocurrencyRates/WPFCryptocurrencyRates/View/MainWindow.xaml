@@ -5,18 +5,39 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WPFCryptocurrencyRates"
         mc:Ignorable="d"
-        Title="Crypto currency Rates" Height="400" Width="500">
+        Title="Crypto currency Rates" Height="500" Width="650"
+        MinHeight="400" MinWidth="500" MaxHeight="600" MaxWidth="800">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="*"/>
+            <RowDefinition Height="350"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
         <Grid Grid.Row="0">
             <Grid.RowDefinitions>
-                <RowDefinition Height="*"/>
+                <RowDefinition Height="80"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
+                <Grid Grid.Row="0" Height="50">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                <Label Grid.Column="0" Content="Cryptocurrency rates" FontSize="24" VerticalAlignment="Center" />
+                <Button Grid.Column="1" Content="Start" Height="50" Width="150">
+
+                </Button>
+            </Grid>
+            <Grid Grid.Row="1">
+                <DataGrid>
+
+                </DataGrid>
+            </Grid>
+        </Grid>
+        <Grid Grid.Row="1">
+            <DataGrid>
+
+            </DataGrid>
         </Grid>
     </Grid>
 </Window>
