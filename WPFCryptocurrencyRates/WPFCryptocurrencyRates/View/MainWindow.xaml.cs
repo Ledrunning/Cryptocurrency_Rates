@@ -1,6 +1,6 @@
 ﻿using System.Windows;
 
-namespace WPFCryptocurrencyRates
+namespace WPFCryptocurrencyRates.View
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
