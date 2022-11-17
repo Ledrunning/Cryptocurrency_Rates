@@ -4,6 +4,10 @@
              xmlns:local="clr-namespace:WPFCryptocurrencyRates"
              StartupUri="View/MainWindow.xaml">
     <Application.Resources>
-         
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="View/ButtonTemplates.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
     </Application.Resources>
 </Application>
