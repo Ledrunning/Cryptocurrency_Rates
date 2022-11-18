@@ -7,6 +7,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WPFCryptocurrencyRates", "W
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CryptocurrencyRates.Gateway", "CryptocurrencyRates.Gateway\CryptocurrencyRates.Gateway.csproj", "{3FF65AE9-E967-42E7-9A2C-93C19E19CA3F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CryptocurrencyRates.Services", "CryptocurrencyRates.Services\CryptocurrencyRates.Services.csproj", "{64BF5537-8B0C-4B19-82E6-3DC2BC1C948F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{3FF65AE9-E967-42E7-9A2C-93C19E19CA3F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3FF65AE9-E967-42E7-9A2C-93C19E19CA3F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3FF65AE9-E967-42E7-9A2C-93C19E19CA3F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{64BF5537-8B0C-4B19-82E6-3DC2BC1C948F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{64BF5537-8B0C-4B19-82E6-3DC2BC1C948F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{64BF5537-8B0C-4B19-82E6-3DC2BC1C948F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{64BF5537-8B0C-4B19-82E6-3DC2BC1C948F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

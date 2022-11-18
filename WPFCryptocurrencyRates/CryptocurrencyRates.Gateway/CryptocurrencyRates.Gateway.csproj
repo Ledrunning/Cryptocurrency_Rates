@@ -16,4 +16,8 @@
     <Folder Include="Helpers\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\CryptocurrencyRates.Services\CryptocurrencyRates.Services.csproj" />
+  </ItemGroup>
+
 </Project>

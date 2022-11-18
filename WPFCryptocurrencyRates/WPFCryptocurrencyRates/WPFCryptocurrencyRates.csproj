@@ -12,4 +12,8 @@
     <Folder Include="ViewModel\Commands\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <PackageReference Include="RestSharp" Version="108.0.3-alpha.0.20" />
+  </ItemGroup>
+
 </Project>
