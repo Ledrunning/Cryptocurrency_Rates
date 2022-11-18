@@ -1,5 +1,4 @@
 ﻿using CryptocurrencyRates.Services.Dto;
-using static CryptocurrencyRates.Services.Dto.CurrencyRateModel;
 
 namespace CryptocurrencyRates.Services.Contracts;
 
@@ -10,7 +9,7 @@ public interface ICryptocurrencyRatesService
     /// </summary>
     /// <param name="token"></param>
     /// <returns>RequiredRatesModel</returns>
-    Task<RequiredRatesModel> GetCurrentRates(CancellationToken token);
+    Task<RequiredRatesModel> GetCurrentRatesAsync(CancellationToken token);
 
     /// <summary>
     ///     Example request = "api.coincap.io/v2/rates/bitcoin"
@@ -18,12 +17,12 @@ public interface ICryptocurrencyRatesService
     /// <param name="id"></param>
     /// <param name="token"></param>
     /// <returns>CurrencyRateModel</returns>
-    Task<CurrencyRateModel> GetCryptoCurrencyRateByIdAsync(string id, CancellationToken token);
+    Task<CurrencyRates> GetCryptoCurrencyRateByIdAsync(string id, CancellationToken token);
 
     /// <summary>
     ///     Get all crypto rates from coincap
     /// </summary>
     /// <param name="token"></param>
     /// <returns>list of RateMode?l</returns>
-    Task<List<RateModel>?> GetAllCryptoCurrencyRates(CancellationToken token);
+    Task<List<Data>?> GetAllCryptoCurrencyRatesAsync(CancellationToken token);
 }

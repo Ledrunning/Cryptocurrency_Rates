@@ -2,7 +2,7 @@
 
 public class RequiredRatesModel
 {
-    public CurrencyRateModel? Bitcoin { get; set; }
-    public CurrencyRateModel? Dogecoin { get; set; }
-    public CurrencyRateModel? Ethereum { get; set; }
+    public CurrencyRates? Bitcoin { get; set; }
+    public CurrencyRates? Dogecoin { get; set; }
+    public CurrencyRates? Ethereum { get; set; }
 }

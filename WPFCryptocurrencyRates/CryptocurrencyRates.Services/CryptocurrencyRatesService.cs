@@ -4,7 +4,6 @@ using CryptocurrencyRates.Services.Exceptions;
 using Newtonsoft.Json;
 using NLog;
 using RestSharp;
-using static CryptocurrencyRates.Services.Dto.CurrencyRateModel;
 
 namespace CryptocurrencyRates.Services;
 
@@ -14,16 +13,18 @@ namespace CryptocurrencyRates.Services;
 public sealed class CryptocurrencyRatesService : ICryptocurrencyRatesService
 {
     private readonly string baseUrl;
+    private readonly int timeout;
     private readonly ILogger logger;
 
-    public CryptocurrencyRatesService(ILogger logger, string baseUrl)
+    public CryptocurrencyRatesService(ILogger logger, string baseUrl, int timeout)
     {
         this.logger = logger;
         this.baseUrl = baseUrl;
+        this.timeout = timeout;
     }
 
     /// <inheritdoc cref="ICryptocurrencyRatesService" />
-    public async Task<RequiredRatesModel> GetCurrentRates(CancellationToken token)
+    public async Task<RequiredRatesModel> GetCurrentRatesAsync(CancellationToken token)
     {
         var bitcoin = await GetCryptoCurrencyRateByIdAsync(RatesIdConstants.Bitcoin, token);
         var dogecoin = await GetCryptoCurrencyRateByIdAsync(RatesIdConstants.Dogecoin, token);
@@ -38,7 +39,7 @@ public sealed class CryptocurrencyRatesService : ICryptocurrencyRatesService
     }
 
     /// <inheritdoc cref="ICryptocurrencyRatesService" />
-    public async Task<CurrencyRateModel> GetCryptoCurrencyRateByIdAsync(string id, CancellationToken token)
+    public async Task<CurrencyRates> GetCryptoCurrencyRateByIdAsync(string id, CancellationToken token)
     {
         var url = new Uri($"{baseUrl}/{id}");
         var client = new RestClient(SetOptions(url));
@@ -46,11 +47,11 @@ public sealed class CryptocurrencyRatesService : ICryptocurrencyRatesService
         var request = new RestRequest();
         var responce = await client.ExecuteAsync(request, token);
 
-        return GetContent<CurrencyRateModel>(responce, url.AbsoluteUri);
+        return GetContent<CurrencyRates>(responce, url.AbsoluteUri);
     }
 
     /// <inheritdoc cref="ICryptocurrencyRatesService" />
-    public async Task<List<RateModel>?> GetAllCryptoCurrencyRates(CancellationToken token)
+    public async Task<List<Data>?> GetAllCryptoCurrencyRatesAsync(CancellationToken token)
     {
         var url = new Uri($"{baseUrl}");
         var client = new RestClient(SetOptions(url));
@@ -58,8 +59,8 @@ public sealed class CryptocurrencyRatesService : ICryptocurrencyRatesService
         var request = new RestRequest();
         var responce = await client.ExecuteAsync(request, token);
 
-        var listOfRates = GetContent<CurrencyRateModel>(responce, url.AbsoluteUri).AllRates;
-        return listOfRates;
+        var listOfRates = GetContent<AllCurrencyRates>(responce, url.AbsoluteUri);
+        return listOfRates.Data;
     }
 
     private T GetContent<T>(RestResponse responce, string url)
@@ -88,7 +89,7 @@ public sealed class CryptocurrencyRatesService : ICryptocurrencyRatesService
         return new RestClientOptions(url)
         {
             ThrowOnAnyError = true,
-            MaxTimeout = -1
+            MaxTimeout = timeout
         };
     }
 }

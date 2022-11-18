@@ -1,5 +1,10 @@
 using System.Diagnostics;
+using CryptocurrencyRates.Gateway.Configuration;
 using CryptocurrencyRates.Gateway.Extensions;
+using CryptocurrencyRates.Gateway.Helpers;
+using CryptocurrencyRates.Services;
+using CryptocurrencyRates.Services.Contracts;
+using Microsoft.OpenApi.Models;
 using NLog;
 using NLog.Web;
 
@@ -16,17 +21,40 @@ internal static class Program
         {
             var builder = WebApplication.CreateBuilder(args);
             builder.ConfigureLogging();
-            
+
+            var concapConfig = builder.Configuration.GetSection(ConcapApi.SectionName).Get<ConcapApi>();
+
+            //Configure services
+            builder.Services.AddTransient<ICryptocurrencyRatesService>(x =>
+                new CryptocurrencyRatesService(logger, concapConfig.BaseUrl!, concapConfig.Timeout));
+            builder.Services.AddControllers();
+            builder.Services.AddMvc();
+            builder.Services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1",
+                    new OpenApiInfo
+                    {
+                        Title = "CryptocurrencyRates.Gateway", Version = $"{ProgramRuntime.ProgramFileVersion}"
+                    });
+            });
+
             var app = builder.Build();
+
+            app.MapControllers();
+            app.UseRouting();
+
             app.Lifetime.RegisterApplicationLifetimeDelegates(logger);
+
+            app.RegisterSwagger();
 
             app.Run();
         }
         catch (Exception ex)
         {
             var name = typeof(Program).Assembly.GetName().Name;
-            Trace.Write($"[{DateTime.Now:HH:mm:ss.fff}] Ошибка при старте приложения [{name}]! Подробности {ex.Message}");
-            logger.Fatal(ex, $"Произошла ошибка при старте приложения [{name}]");
+            Trace.Write(
+                $"[{DateTime.Now:HH:mm:ss.fff}] Application startup error [{name}]! Details {ex.Message}");
+            logger.Fatal(ex, $"Application startup error [{name}]");
         }
         finally
         {

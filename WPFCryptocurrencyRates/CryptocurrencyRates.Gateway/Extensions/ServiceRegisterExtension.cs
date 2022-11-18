@@ -22,4 +22,17 @@ static class ServiceRegisterExtension
             logger.Info($"Program Version - {ProgramRuntime.ProgramVersion}");
         });
     }
+
+    public static void RegisterSwagger(this WebApplication app)
+    {
+        if (app.Environment.IsDevelopment())
+        {
+            app.UseSwagger();
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", $"{ProgramRuntime.ProgramVersion}");
+                c.RoutePrefix = string.Empty;
+            });
+        }
+    }
 }
