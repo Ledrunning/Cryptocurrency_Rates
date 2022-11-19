@@ -1,7 +1,7 @@
-﻿using System.Windows.Input;
-using System;
+﻿using System;
+using System.Windows.Input;
 
-namespace WPFCryptocurrencyRates.ViewModel.Commands;
+namespace CryptoCurrencyRates.Client.ViewModel.Commands;
 
 public class RelayCommand : ICommand
 {

@@ -1,4 +1,4 @@
-﻿namespace CryptocurrencyRates.Services.Exceptions;
+﻿namespace CryptocurrencyRates.Common.Exceptions;
 
 public class CryptoCurrencyRatesException : Exception
 {

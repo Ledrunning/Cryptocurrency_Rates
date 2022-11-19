@@ -25,8 +25,8 @@ internal static class Program
             var concapConfig = builder.Configuration.GetSection(ConcapApi.SectionName).Get<ConcapApi>();
 
             //Configure services
-            builder.Services.AddTransient<ICryptocurrencyRatesService>(x =>
-                new CryptocurrencyRatesService(logger, concapConfig.BaseUrl!, concapConfig.Timeout));
+            builder.Services.AddTransient<ICryptoCurrencyRatesService>(x =>
+                new CryptoCurrencyRatesService(logger, concapConfig.BaseUrl!, concapConfig.Timeout));
             builder.Services.AddControllers();
             builder.Services.AddMvc();
             builder.Services.AddSwaggerGen(c =>

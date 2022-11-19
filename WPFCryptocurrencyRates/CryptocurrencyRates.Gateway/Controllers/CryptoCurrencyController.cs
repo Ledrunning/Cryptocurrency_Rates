@@ -8,9 +8,9 @@ namespace CryptocurrencyRates.Gateway.Controllers;
 [ApiController]
 public class CryptoCurrencyController : Controller
 {
-    private readonly ICryptocurrencyRatesService cryptoCurrencyService;
+    private readonly ICryptoCurrencyRatesService cryptoCurrencyService;
 
-    public CryptoCurrencyController(ICryptocurrencyRatesService cryptoCurrencyService)
+    public CryptoCurrencyController(ICryptoCurrencyRatesService cryptoCurrencyService)
     {
         this.cryptoCurrencyService = cryptoCurrencyService;
     }
@@ -34,5 +34,12 @@ public class CryptoCurrencyController : Controller
     public Task<List<Data>?> GetAllCryptoCurrencyRates(CancellationToken token)
     {
         return cryptoCurrencyService.GetAllCryptoCurrencyRatesAsync(token);
+    }
+
+    [HttpGet]
+    [Route(nameof(GetCurrentRatesList))]
+    public Task<List<CurrencyRates>> GetCurrentRatesList(CancellationToken token)
+    {
+        return cryptoCurrencyService.GetCurrentRatesListAsync(token);
     }
 }

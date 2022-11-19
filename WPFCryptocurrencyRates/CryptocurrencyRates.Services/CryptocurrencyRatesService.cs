@@ -1,6 +1,7 @@
-﻿using CryptocurrencyRates.Services.Contracts;
+﻿using CryptocurrencyRates.Common.Exceptions;
+using CryptocurrencyRates.Services.Constant;
+using CryptocurrencyRates.Services.Contracts;
 using CryptocurrencyRates.Services.Dto;
-using CryptocurrencyRates.Services.Exceptions;
 using Newtonsoft.Json;
 using NLog;
 using RestSharp;
@@ -10,20 +11,20 @@ namespace CryptocurrencyRates.Services;
 /// <summary>
 ///     Class for getting currency rates from coincap.io
 /// </summary>
-public sealed class CryptocurrencyRatesService : ICryptocurrencyRatesService
+public sealed class CryptoCurrencyRatesService : ICryptoCurrencyRatesService
 {
     private readonly string baseUrl;
     private readonly int timeout;
     private readonly ILogger logger;
 
-    public CryptocurrencyRatesService(ILogger logger, string baseUrl, int timeout)
+    public CryptoCurrencyRatesService(ILogger logger, string baseUrl, int timeout)
     {
         this.logger = logger;
         this.baseUrl = baseUrl;
         this.timeout = timeout;
     }
 
-    /// <inheritdoc cref="ICryptocurrencyRatesService" />
+    /// <inheritdoc cref="ICryptoCurrencyRatesService" />
     public async Task<RequiredRatesModel> GetCurrentRatesAsync(CancellationToken token)
     {
         var bitcoin = await GetCryptoCurrencyRateByIdAsync(RatesIdConstants.Bitcoin, token);
@@ -38,7 +39,22 @@ public sealed class CryptocurrencyRatesService : ICryptocurrencyRatesService
         };
     }
 
-    /// <inheritdoc cref="ICryptocurrencyRatesService" />
+    /// <inheritdoc cref="ICryptoCurrencyRatesService" />
+    public async Task<List<CurrencyRates>> GetCurrentRatesListAsync(CancellationToken token)
+    {
+        var listOfCryptoCurrency = new List<CurrencyRates>();
+        var bitcoin = await GetCryptoCurrencyRateByIdAsync(RatesIdConstants.Bitcoin, token);
+        var dogecoin = await GetCryptoCurrencyRateByIdAsync(RatesIdConstants.Dogecoin, token);
+        var ethereum = await GetCryptoCurrencyRateByIdAsync(RatesIdConstants.Ethereum, token);
+
+        listOfCryptoCurrency.Add(bitcoin);
+        listOfCryptoCurrency.Add(dogecoin);
+        listOfCryptoCurrency.Add(ethereum);
+
+        return listOfCryptoCurrency;
+    }
+
+    /// <inheritdoc cref="ICryptoCurrencyRatesService" />
     public async Task<CurrencyRates> GetCryptoCurrencyRateByIdAsync(string id, CancellationToken token)
     {
         var url = new Uri($"{baseUrl}/{id}");
@@ -50,7 +66,7 @@ public sealed class CryptocurrencyRatesService : ICryptocurrencyRatesService
         return GetContent<CurrencyRates>(responce, url.AbsoluteUri);
     }
 
-    /// <inheritdoc cref="ICryptocurrencyRatesService" />
+    /// <inheritdoc cref="ICryptoCurrencyRatesService" />
     public async Task<List<Data>?> GetAllCryptoCurrencyRatesAsync(CancellationToken token)
     {
         var url = new Uri($"{baseUrl}");
@@ -81,7 +97,7 @@ public sealed class CryptocurrencyRatesService : ICryptocurrencyRatesService
         }
 
         throw new CryptoCurrencyRatesException(
-            $"Response from OcrolusGateway failed. Status code: {responce.StatusCode}, {responce.ErrorMessage}");
+            $"Response from Concap failed. Status code: {responce.StatusCode}, {responce.ErrorMessage}");
     }
 
     private RestClientOptions SetOptions(Uri url)

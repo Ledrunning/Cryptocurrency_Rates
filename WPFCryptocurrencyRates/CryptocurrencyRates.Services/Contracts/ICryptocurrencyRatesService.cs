@@ -2,7 +2,7 @@
 
 namespace CryptocurrencyRates.Services.Contracts;
 
-public interface ICryptocurrencyRatesService
+public interface ICryptoCurrencyRatesService
 {
     /// <summary>
     ///     Gets crypto rates for current task from iTero
@@ -25,4 +25,11 @@ public interface ICryptocurrencyRatesService
     /// <param name="token"></param>
     /// <returns>list of RateMode?l</returns>
     Task<List<Data>?> GetAllCryptoCurrencyRatesAsync(CancellationToken token);
+
+    /// <summary>
+    ///     Getting list crypto rates for current task from iTero
+    /// </summary>
+    /// <param name="token"></param>
+    /// <returns></returns>
+    Task<List<CurrencyRates>> GetCurrentRatesListAsync(CancellationToken token);
 }
