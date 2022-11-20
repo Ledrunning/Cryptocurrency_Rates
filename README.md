@@ -1,7 +1,7 @@
 # WPFCryptocurrencyRates test task for desktop C# developer in iTero
-```
+
 https://gist.github.com/pavelkhrulev/bc891149e004475221acef1c956853bb
-``
+
 The project demonstrates getting and updating cryptocurrency exchange rates getting data about running Windows services and show names of services:
 - Actual cryptocurrency rates
 - Windows services that are currently running
