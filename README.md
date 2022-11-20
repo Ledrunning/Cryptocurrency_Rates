@@ -18,14 +18,18 @@ You should find it in **CryptocurrencyRates.Gateway** bin folder called Logs
 
 Programm setup:
 - CryptocurrencyRates.Gateway: use appsettings.json and next section
+```
 "ConcapApi": {
     "BaseUrl": "https://api.coincap.io/v2/rates",
     "Timeout":  -1 
   }
+```
   
 - CryptoCurrencyRates.Client use appsettings.json and next section to change host IP addrres for CryptocurrencyRates.Gateway
+```
 "CryptocurrencyRatesGateway": {
     "GatewayUrl": "https://localhost:7208/api/CryptoCurrency/GetCurrentRates"
   }
+```
   
   ![](currencyRates.gif)
