@@ -7,9 +7,6 @@
         mc:Ignorable="d"
         Title="Crypto currency Rates" Height="500" Width="650"
         MinHeight="400" MinWidth="500" MaxHeight="600" MaxWidth="800">
-    <!-- <Window.Resources> -->
-    <!--     <viewModel:MainViewModel x:Key="MainViewModel" /> -->
-    <!-- </Window.Resources> -->
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="33*"/>
@@ -35,15 +32,19 @@
                         Content="{Binding ButtonText}" Command="{Binding StartServiceCommand}" />
             </Grid>
             <Grid Grid.Row="1">
-                <DataGrid x:Name="CryptoCurrencyData"
+                <DataGrid x:Name="CryptoCurrencyData" AutoGenerateColumns="false"
                           ItemsSource="{Binding CryptoCurrencyCollection, UpdateSourceTrigger=PropertyChanged}">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Currency name" Width="400" Binding="{Binding Id}"/>
+                        <DataGridTextColumn Header="Price in USD" Width="200" Binding="{Binding CurrencyRate}"/>
+                    </DataGrid.Columns>
                 </DataGrid>
             </Grid>
         </Grid>
         <Grid Grid.Row="1" Grid.ColumnSpan="2" Grid.Column="0">
-            <DataGrid>
+            <ListBox ItemsSource="{Binding ServiceNames}">
 
-            </DataGrid>
+            </ListBox>
         </Grid>
     </Grid>
 </Window>
