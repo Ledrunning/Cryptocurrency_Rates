@@ -32,4 +32,6 @@ Programm setup:
   }
 ```
   
+  ## UI Layouts
+  
   ![](currencyRates.gif)
