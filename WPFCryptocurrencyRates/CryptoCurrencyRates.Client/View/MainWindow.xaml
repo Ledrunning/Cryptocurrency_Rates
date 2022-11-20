@@ -7,10 +7,10 @@
         mc:Ignorable="d"
         Title="Crypto currency Rates" Height="500" Width="650"
         MinHeight="400" MinWidth="500" MaxHeight="600" MaxWidth="800">
-    <Window.Resources>
-        <viewModel:MainViewModel x:Key="MainViewModel" />
-    </Window.Resources>
-    <Grid DataContext="{StaticResource MainViewModel}">
+    <!-- <Window.Resources> -->
+    <!--     <viewModel:MainViewModel x:Key="MainViewModel" /> -->
+    <!-- </Window.Resources> -->
+    <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="33*"/>
             <ColumnDefinition Width="32*"/>

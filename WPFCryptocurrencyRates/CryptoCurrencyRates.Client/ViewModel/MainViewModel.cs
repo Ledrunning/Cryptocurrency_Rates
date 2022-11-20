@@ -19,10 +19,9 @@ internal class MainViewModel : BaseViewModel
 
     private ObservableCollection<CryptoCurrencyModel>? cryptoCurrencyCollection = new();
 
-    public MainViewModel()
+    public MainViewModel(ICryptoCurrencyRatesService cryptoCurrencyRatesService)
     {
-        cryptoCurrencyRatesService =
-            new CryptoCurrencyRatesService("https://localhost:7208/api/CryptoCurrency/GetCurrentRates");
+        this.cryptoCurrencyRatesService = cryptoCurrencyRatesService;
         InitializeCommands();
     }
 

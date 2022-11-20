@@ -25,10 +25,10 @@ public class CryptoCurrencyRatesService : ICryptoCurrencyRatesService
         var request = new RestRequest();
         var responce = await client.ExecuteAsync(request, token);
 
-        return GetContent(responce, url);
+        return GetContent(responce);
     }
 
-    private RequiredRatesModel GetContent(RestResponse responce, string url)
+    private RequiredRatesModel GetContent(RestResponse responce)
     {
         if (responce.IsSuccessful)
         {

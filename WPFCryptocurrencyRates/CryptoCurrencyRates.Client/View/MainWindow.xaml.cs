@@ -1,4 +1,5 @@
 ﻿using System.Windows;
+using CryptoCurrencyRates.Client.Contracts;
 
 namespace CryptoCurrencyRates.Client.View;
 

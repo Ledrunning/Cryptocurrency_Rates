@@ -6,6 +6,7 @@ using CryptoCurrencyRates.Client.Configuration;
 using CryptoCurrencyRates.Client.Contracts;
 using CryptoCurrencyRates.Client.Services.Rest;
 using CryptoCurrencyRates.Client.View;
+using CryptoCurrencyRates.Client.ViewModel;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -41,6 +42,10 @@ public partial class App : Application
 
         services.AddTransient<ICryptoCurrencyRatesService>(x =>
             new CryptoCurrencyRatesService(gatewaySettings?.GatewayUrl!));
-        services.AddTransient(typeof(MainWindow));
+        // Register all ViewModels.
+        services.AddSingleton<MainViewModel>();
+
+        // Register all the Windows of the applications.
+        services.AddScoped<MainWindow>(_ => new() {DataContext = _.GetService<MainViewModel>()});
     }
 }
