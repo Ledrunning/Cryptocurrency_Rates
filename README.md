@@ -1,9 +1,7 @@
-# WPFCryptocurrencyRates test task for desktop C# developer in iTero
-
-https://gist.github.com/pavelkhrulev/bc891149e004475221acef1c956853bb
+# WPF Client - Server Cryptocurrency rates
 
 The project demonstrates getting and updating cryptocurrency exchange rates getting data about running Windows services and show names of services:
-- Actual cryptocurrency rates
+- Actual cryptocurrency rates https://api.coincap.io
 - Windows services that are currently running
 
 Program written in C# language on .NET 6 in Visual Studio Enterprise 2022
