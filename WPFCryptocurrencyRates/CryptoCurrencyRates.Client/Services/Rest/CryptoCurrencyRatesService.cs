@@ -23,18 +23,18 @@ public class CryptoCurrencyRatesService : ICryptoCurrencyRatesService
         var client = new RestClient(url);
 
         var request = new RestRequest();
-        var responce = await client.ExecuteAsync(request, token);
+        var response = await client.ExecuteAsync(request, token);
 
-        return GetContent(responce);
+        return GetContent(response);
     }
 
-    private RequiredRatesModel GetContent(RestResponse responce)
+    private RequiredRatesModel GetContent(RestResponseBase response)
     {
-        if (responce.IsSuccessful)
+        if (response.IsSuccessful)
         {
-            if (responce.Content != null)
+            if (response.Content != null)
             {
-                var model = JsonConvert.DeserializeObject<RequiredRatesModel>(responce.Content);
+                var model = JsonConvert.DeserializeObject<RequiredRatesModel>(response.Content);
                 if (model != null)
                 {
                     return model;
@@ -43,6 +43,6 @@ public class CryptoCurrencyRatesService : ICryptoCurrencyRatesService
         }
 
         throw new CryptoCurrencyRatesException(
-            $"Response from CryptocurrencyRates.Gateway is failed. Status code: {responce.StatusCode}, {responce.ErrorMessage}");
+            $"Response from CryptocurrencyRates.Gateway is failed. Status code: {response.StatusCode}, {response.ErrorMessage}");
     }
 }
