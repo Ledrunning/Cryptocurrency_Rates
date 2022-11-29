@@ -22,7 +22,7 @@ internal class MainViewModel : BaseViewModel
     private string? buttonText;
     private CancellationTokenSource cancelTokenSource;
 
-    private ObservableCollection<CryptoCurrencyModel>? cryptoCurrencyCollection = new();
+    private ObservableCollection<CurrencyRateModel>? cryptoCurrencyCollection = new();
     private CancellationToken token;
 
     public MainViewModel(ICryptoCurrencyRatesService cryptoCurrencyRatesService)
@@ -32,7 +32,7 @@ internal class MainViewModel : BaseViewModel
         GetWindowsServices();
     }
 
-    public ObservableCollection<CryptoCurrencyModel>? CryptoCurrencyCollection
+    public ObservableCollection<CurrencyRateModel>? CryptoCurrencyCollection
     {
         get => cryptoCurrencyCollection;
         set
@@ -93,14 +93,17 @@ internal class MainViewModel : BaseViewModel
             {
                 //NOTICE! For current context I didn't use created token in Start() method
                 //If someone needed to handle operation canceled error token is the must!
-                var model = await cryptoCurrencyRatesService.GetCurrentRatesAsync(CancellationToken.None);
+                var model = await cryptoCurrencyRatesService.GetAllCryptoCurrencyRatesAsync(CancellationToken.None);
                 CryptoCurrencyCollection?.Clear();
-                CryptoCurrencyCollection?.Add(new CryptoCurrencyModel
-                    { Id = model.Bitcoin?.Data?.Id, CurrencyRate = model.Bitcoin?.Data?.RateUsd });
-                CryptoCurrencyCollection?.Add(new CryptoCurrencyModel
-                    { Id = model.Dogecoin?.Data?.Id, CurrencyRate = model.Dogecoin?.Data?.RateUsd });
-                CryptoCurrencyCollection?.Add(new CryptoCurrencyModel
-                    { Id = model.Ethereum?.Data?.Id, CurrencyRate = model.Ethereum?.Data?.RateUsd });
+
+                if (model != null)
+                {
+                    foreach (var currency in model)
+                    {
+                        CryptoCurrencyCollection?.Add(currency);
+                    }
+                }
+
                 await Task.Delay(updateGridIntervalInMs, CancellationToken.None);
             }
             catch (Exception e)

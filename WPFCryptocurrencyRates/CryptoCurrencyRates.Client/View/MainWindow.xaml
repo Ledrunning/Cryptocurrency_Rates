@@ -35,16 +35,14 @@
                 <DataGrid x:Name="CryptoCurrencyData" AutoGenerateColumns="false"
                           ItemsSource="{Binding CryptoCurrencyCollection, UpdateSourceTrigger=PropertyChanged}">
                     <DataGrid.Columns>
-                        <DataGridTextColumn Header="Currency name" Width="400" Binding="{Binding Id}"/>
-                        <DataGridTextColumn Header="Price in USD" Width="200" Binding="{Binding CurrencyRate}"/>
+                        <DataGridTextColumn Header="Currency name" Width="*" Binding="{Binding Id}"/>
+                        <DataGridTextColumn Header="Price in USD" Width="*" Binding="{Binding RateUsd}"/>
                     </DataGrid.Columns>
                 </DataGrid>
             </Grid>
         </Grid>
         <Grid Grid.Row="1" Grid.ColumnSpan="2" Grid.Column="0">
-            <ListBox ItemsSource="{Binding ServiceNames}">
-
-            </ListBox>
+            <ListBox ItemsSource="{Binding ServiceNames}" />
         </Grid>
     </Grid>
 </Window>
