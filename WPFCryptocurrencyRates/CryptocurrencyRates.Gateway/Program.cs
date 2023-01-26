@@ -14,7 +14,7 @@ internal static class Program
 {
     public static void Main(string[] args)
     {
-        var loggerConfig = "NLog.config";
+        const string loggerConfig = "NLog.config";
         var logger = NLogBuilder.ConfigureNLog(loggerConfig).GetCurrentClassLogger();
 
         try
@@ -24,11 +24,14 @@ internal static class Program
 
             var concapConfig = builder.Configuration.GetSection(ConcapApi.SectionName).Get<ConcapApi>();
 
+            if (concapConfig is { BaseUrl: { } })
+            {
+                builder.Services.AddTransient<ICryptoCurrencyRatesService>(x =>
+                    new CryptoCurrencyRatesService(logger, concapConfig.BaseUrl, concapConfig.Timeout));
+            }
+
             //Configure services
-            builder.Services.AddTransient<ICryptoCurrencyRatesService>(x =>
-                new CryptoCurrencyRatesService(logger, concapConfig.BaseUrl!, concapConfig.Timeout));
             builder.Services.AddControllers();
-            builder.Services.AddMvc();
             builder.Services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1",
