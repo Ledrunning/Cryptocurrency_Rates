@@ -17,9 +17,9 @@ public class CryptoCurrencyController : Controller
 
     [HttpGet]
     [Route(nameof(GetCryptoCurrencyRateById))]
-    public Task<CurrencyRates> GetCryptoCurrencyRateById(string id, CancellationToken token)
+    public async Task<CurrencyRates> GetCryptoCurrencyRateById(string id, CancellationToken token)
     {
-        return cryptoCurrencyService.GetCryptoCurrencyRateByIdAsync(id, token);
+        return await cryptoCurrencyService.GetCryptoCurrencyRateByIdAsync(id, token);
     }
 
     [HttpGet]

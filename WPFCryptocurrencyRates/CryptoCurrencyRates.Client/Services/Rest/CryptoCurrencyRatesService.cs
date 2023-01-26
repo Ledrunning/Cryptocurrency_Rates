@@ -10,7 +10,7 @@ using System;
 
 namespace CryptoCurrencyRates.Client.Services.Rest;
 
-public class CryptoCurrencyRatesService : ICryptoCurrencyRatesService
+public sealed class CryptoCurrencyRatesService : ICryptoCurrencyRatesService
 {
     private readonly string url;
 

@@ -7,6 +7,7 @@ using CryptoCurrencyRates.Client.Contracts;
 using CryptoCurrencyRates.Client.Services.Rest;
 using CryptoCurrencyRates.Client.View;
 using CryptoCurrencyRates.Client.ViewModel;
+using CryptocurrencyRates.Common.Exceptions;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -41,7 +42,14 @@ public partial class App : Application
         var gatewaySettings = Configuration?.GetSection(GatewaySettings.SectionName).Get<GatewaySettings>();
 
         services.AddTransient<ICryptoCurrencyRatesService>(x =>
-            new CryptoCurrencyRatesService(gatewaySettings?.GatewayUrl!));
+        {
+            if (gatewaySettings is { GatewayUrl: { } })
+            {
+                return new CryptoCurrencyRatesService(gatewaySettings.GatewayUrl);
+            }
+
+            throw new CryptoCurrencyRatesException("Error to reading gateway settings!");
+        });
         // Register all ViewModels.
         services.AddSingleton<MainViewModel>();
 
