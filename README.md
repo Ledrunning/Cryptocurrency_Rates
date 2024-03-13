@@ -1,5 +1,8 @@
 # WPF Client - Server Cryptocurrency rates
 
+[![.NET](https://github.com/Ledrunning/Cryptocurrency_Rates/actions/workflows/dotnet-desktop.yml/badge.svg)](https://github.com/Ledrunning/Cryptocurrency_Rates/actions/workflows/dotnet-desktop.yml)
+
+
 The project demonstrates getting and updating cryptocurrency exchange rates getting data about running Windows services and showing names of services:
 
 - Actual cryptocurrency rates from https://coincap.io/
