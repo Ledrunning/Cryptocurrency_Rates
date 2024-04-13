@@ -24,3 +24,6 @@ COPY CryptocurrencyRates.Gateway/bin/Release/net6.0/ ./
 COPY CryptoCurrencyRates.Client/bin/Release/net6.0-windows/ ./
 
 ENTRYPOINT ["dotnet", "CryptocurrencyRates.Gateway.dll"]
+#docker run -it --name Crypto cryptocurrency-image CryptoCurrencyRates.Client.dll
+#docker run -it --name Crypto -e DISPLAY=$DISPLAY cryptocurrency-image CryptoCurrencyRates.Client.dll
+
