@@ -1,35 +1,26 @@
 FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
 
-# Set the working directory inside the container
 WORKDIR /app
 
-# Copy the entire contents of the WPFCryptocurrencyRates directory into the container
+COPY *.sln .
 COPY . .
 
-# Restore dependencies and build the CryptocurrencyRates.Gateway project
-RUN dotnet restore CryptocurrencyRates.Gateway/CryptocurrencyRates.Gateway.csproj
-RUN dotnet build CryptocurrencyRates.Gateway/CryptocurrencyRates.Gateway.csproj -c Release -o /app/build
+RUN dotnet restore
 
-# Set the working directory to the output directory of CryptocurrencyRates.Gateway
-WORKDIR /app/CryptocurrencyRates.Gateway/bin/Release/net6.0-windows
+# Build the solution with verbose output
+RUN dotnet build -c Release --no-restore -v normal
 
-# Copy the built files into the container
-COPY CryptocurrencyRates.Gateway/bin/Release/net6.0 .
+WORKDIR /app/CryptocurrencyRates.Gateway
+# Build the gateway project with verbose output
+RUN dotnet build -c Release -o /app/build -v normal
 
-# Switch back to the main working directory
+WORKDIR /app/CryptoCurrencyRates.Client
+# Build the client project with verbose output
+RUN dotnet build -c Release -o /app/build -v normal
+
 WORKDIR /app
 
-# Build the CryptoCurrencyRates.Client project
-RUN dotnet build CryptoCurrencyRates.Client/CryptoCurrencyRates.Client.csproj -c Release -o /app/build
+COPY CryptocurrencyRates.Gateway/bin/Release/net6.0/ ./
+COPY CryptoCurrencyRates.Client/bin/Release/net6.0-windows/ ./
 
-# Set the working directory to the output directory of CryptoCurrencyRates.Client
-WORKDIR /app/CryptoCurrencyRates.Client/bin/Release/net6.0-windows
-
-# Copy the built files into the container
-COPY CryptoCurrencyRates.Client/bin/Release/net6.0-windows .
-
-# Switch back to the main working directory
-WORKDIR /app
-
-# Set the entry point for the container
-ENTRYPOINT ["dotnet", "CryptocurrencyRates.Gateway.exe"]
+ENTRYPOINT ["dotnet", "CryptocurrencyRates.Gateway.dll"]
