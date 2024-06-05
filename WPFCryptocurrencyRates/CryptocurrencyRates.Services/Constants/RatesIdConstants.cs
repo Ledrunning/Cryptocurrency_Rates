@@ -1,4 +1,4 @@
-﻿namespace CryptocurrencyRates.Services.Constant;
+﻿namespace CryptocurrencyRates.Services.Constants;
 
 /// <summary>
 ///     NOTE! Constant for put Id in GET methods,
