@@ -1,4 +1,4 @@
-﻿using CryptocurrencyRates.Services.Constant;
+﻿using CryptocurrencyRates.Services.Constants;
 using CryptocurrencyRates.Services.Contracts;
 using CryptocurrencyRates.Services.Dto;
 using NLog;
